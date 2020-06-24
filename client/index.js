@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { setVideoDetailsAsync } from './src/components/video/VideoSlice';
 import { Provider } from 'react-redux';
-import AppRouter from './components/AppRouter';
+import AppRouter from './src/router/AppRouter';
 import store from './src/app/store';
 import LoadingPage from './src/components/loadingPage/LoadingPage';
-import './styles/styles.scss';
-import bla from 'bla';
 
 const App = (
   <React.StrictMode>

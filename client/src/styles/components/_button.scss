@@ -1,0 +1,35 @@
+.button {
+  background: $blue;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-size: $font-size-large;
+  font-weight: 300;
+  line-height: 1;
+  padding: $s-size;
+  text-decoration: none;
+}
+
+.button--link {
+  background: none;
+  font-weight: 600 !important;
+}
+
+.button--logout {
+  position: absolute !important;
+  right: 0px;
+  color: $off-white;
+}
+
+.button--small {
+  font-size: 0.8rem !important;
+}
+
+.link {
+  text-decoration: none !important;
+  width: max-content;
+}
+
+.input--submit {
+  width: 150px;
+}

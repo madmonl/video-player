@@ -24,6 +24,8 @@ const videoSlice = createSlice({
 
 const { setVideoDetails, increaseLikes } = videoSlice.actions;
 
+export const selectVideoDetails = (state) => state.video.value.video;
+
 export function increaseLikesAsync() {
   return async (dispatch) => {
     const { data } = await axios.get('/api/likes/increase');

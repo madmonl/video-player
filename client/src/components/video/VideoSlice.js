@@ -1,28 +1,43 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { renderApp } from '..';
+import { renderApp } from '../../';
 import axios from 'axios';
 
-export const videoSlice = createSlice({
+const videoSlice = createSlice({
   name: 'video',
   initialState: {
-    value: { forms: {} },
+    value: {
+      video: {
+        likes: null,
+        views: null
+      }
+    }
   },
   reducers: {
     setVideoDetails: (state, action) => {
-      const { id } = action.payload;
-      state.value.forms[id] = action.payload;
+      state.value.video = action.payload;
     },
-  },
+    increaseLikes: (state, action) => {
+      state.value.video.likes = action.payload;
+    }
+  }
 });
 
-const { setVideoDetails } = videoSlice.actions;
+const { setVideoDetails, increaseLikes } = videoSlice.actions;
 
-export const setVideoDetailsAsync = () => {
+export function increaseLikesAsync() {
   return async (dispatch) => {
-    const { data } = await axios.get('/video');
+    const { data } = await axios.get('/api/likes/increase');
+    dispatch(increaseLikes(data));
+    renderApp();
+  };
+}
+
+export function setVideoDetailsAsync() {
+  return async (dispatch) => {
+    const { data } = await axios.get('/api/video');
     dispatch(setVideoDetails(data));
     renderApp();
   };
-};
+}
 
 export default videoSlice.reducer;

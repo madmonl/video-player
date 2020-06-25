@@ -9,6 +9,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PauseIcon from '@material-ui/icons/Pause';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import ReactPlayer from 'react-player';
+import Timer from 'react-compound-timer'
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function Video() {
@@ -16,7 +17,13 @@ export default function Video() {
   const [playing, setPlaying] = useState(false);
   const { likes, views } = useSelector(selectVideoDetails);
 
-  const handlePlayPause = () => {
+  const handlePlayPause = (play, pause) => {
+    if (playing) {
+      pause();
+    } else {
+      play();
+    }
+
     setPlaying(!playing);
   }
 
@@ -24,21 +31,38 @@ export default function Video() {
     <Card className="video-container">
       <CardContent>
         <ReactPlayer
+          className="video-player"
           url='http://clips.vorwaerts-gmbh.de/VfE_html5.mp4'
           playing={playing}
         />
         <CardActions>
-          <IconButton onClick={handlePlayPause} aria-label="play/pause">
-            {playing ? <PauseIcon /> : <PlayArrowIcon />}
-          </IconButton>
-          {likes}
-          <IconButton onClick={() => dispatch(increaseLikesAsync())} aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          {views}
-          <RemoveRedEyeIcon />
+          <div className="card-actions-container">
+            <div className="play-container">
+              <Timer
+                initialTime={0}
+                startImmediately={false}
+              >
+                {({ start, pause }) => (
+                  <>
+                    <span><Timer.Hours />:<Timer.Minutes />:<Timer.Seconds /></span>
+                    <IconButton onClick={() => handlePlayPause(start, pause)} aria-label="play/pause">
+                      {playing ? <PauseIcon /> : <PlayArrowIcon />}
+                    </IconButton>
+                  </>
+                )}
+              </Timer>
+            </div>
+            <div className="likes-container">
+              <span className="likes">{likes}</span>
+              <IconButton onClick={() => dispatch(increaseLikesAsync())} aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+            </div>
+            <span className="views">{views}</span>
+            <RemoveRedEyeIcon className="eye-icon" />
+          </div>
         </CardActions>
-      </CardContent>
-    </Card>
+      </CardContent >
+    </Card >
   );
 }

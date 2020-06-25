@@ -1,0 +1,32 @@
+.video-container {
+  display: flex;
+  margin: auto;
+  width: fit-content;
+  margin-top: 20px;
+}
+
+.card-actions-container {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  min-width: 640px;
+}
+
+.video-player {
+  display: flex;
+  margin: auto;
+}
+
+.play-container {
+  margin-left: 20px;
+}
+
+.likes-container {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.eye-icon {
+  margin-left: 5px;
+}
